@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="home :: html_head">
+
+</head>
+<head>
+    <title>Create Customer</title>
+    <style>
+        .error{
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Create New Customer</h1>
+    <form action="/create" class="form_validate" th:object="${customer}" method="post">
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                <label>Full name</label>
+                <input type="text" th:field="*{fullName}"
+                       name="fullName" id="fullName" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Phone</label>
+                <input type="tel" th:field="*{phone}"
+                       name="phone" id="phone" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="email" th:field="*{email}" class="form-control"
+                       name="email" id="email">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email">Province</label>
+                <br>
+                <select name="select_form" class="select-group col-md-12" style="height: 37px;" id="select_form"
+                        th:object="${provinceList}">
+                    <option th:each="p : ${provinceList}" th:value="${p.id}" th:text="${p.name}"
+                            name="province"></option>
+                </select>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+            <div class="col">
+                <a href="/" class="btn btn-danger">Back Home</a>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+</div>
+<script src="/resource/validate.js"></script>
+</body>
+</html>

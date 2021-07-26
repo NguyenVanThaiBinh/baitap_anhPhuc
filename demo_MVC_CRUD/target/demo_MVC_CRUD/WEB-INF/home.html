@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="html_head">
+    <meta charset="UTF-8">
+
+    <script src="webjars/popper.js/2.5.4/umd/popper.min.js"></script>
+    <script src="webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="webjars/jquery-validation/1.15.0/jquery.validate.min.js"></script>
+    <script src="webjars/sweetalert2/11.0.17/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="webjars/sweetalert2/11.0.17/dist/sweetalert2.min.css">
+    <script src="webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css">
+    <link href="https://vnvc.vn/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <style>
+        body {
+            margin-top: 2em;
+        }
+    </style>
+</head>
+<head>
+    <title>Customer Manage</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Customer Manage</h1>
+        </div>
+        <div class="col">
+            <h1><a href="/create_customer">
+                <button class="btn btn-primary">Create New Customer!</button>
+            </a></h1>
+        </div>
+        <div class="col" style="display: none">
+            <th:block>
+                <h1>
+                    <div  id="msg" th:if="${msgs != null}" th:text="${msgs}" style="color: red" ></div>
+                </h1>
+            </th:block>
+        </div>
+        <div class="col" style="display: none">
+            <th:block>
+                <h1>
+                    <div  id="msg_delete" th:if="${msg_delete != null}" th:text="${msg_delete}" style="color: red" ></div>
+                </h1>
+            </th:block>
+        </div>
+        <div class="col" style="display: none">
+            <th:block>
+                <h1>
+                    <div  id="msg_edit" th:if="${msg_edit!= null}" th:text="${msg_edit}" style="color: red" ></div>
+                </h1>
+            </th:block>
+        </div>
+    </div>
+    <br>
+    <div class="box-body">
+        <table id="orderItems" class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Province</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody id="add-row">
+            <th:block th:each="employee : ${customerList}">
+                <tr th:id="${employee.id+'-a'}">
+                    <th scope="row" th:text="${employee.id}"></th>
+                    <td th:text="${employee.fullName}" th:id="${employee.id+'-fullName'}"></td>
+                    <td th:text="${employee.email}" th:id="${employee.id+'-email'}"></td>
+                    <td th:text="${employee.phone}" th:id="${employee.id+'-phone'}"></td>
+                    <td th:text="${employee.province.name}" th:id="${employee.id+'-province'}"></td>
+                    <td>
+                        <a th:href="@{'/edit' + ${employee.id}}"  class="btn btn-danger" th:attr="value = ${employee.id}">
+                            Edit
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/delete/' + ${employee.id}}"  class="btn btn-primary" th:attr="value = ${employee.id}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+</div>
+<script>
+    if ($("#msg").val() != null){
+        createDone();
+    }
+
+    function createDone(){
+        Swal.fire({
+            title: 'Create Customer Done!',
+            width: 600,
+            padding: '3em',
+            showConfirmButton: false,
+            timer: 3000,
+            background: '#fff url(https://sweetalert2.github.io/images/trees.png)',
+            backdrop: `
+    rgba(0,0,123,0.4)
+    url("https://sweetalert2.github.io/images/nyan-cat.gif")
+    left top
+    no-repeat
+  `
+        })
+
+    }
+    if ($("#msg_delete").val() != null){
+        deleteDone();
+    }
+
+    function deleteDone(){
+        Swal.fire({
+            icon: 'info',
+            title: 'Delete Customer Successfully!',
+            showConfirmButton: false,
+            timer: 2500
+        });
+    }
+    if ($("#msg_edit").val() != null){
+        editDone();
+    }
+
+    function editDone(){
+        Swal.fire({
+            icon: 'warning',
+            title: 'Edit Customer Successfully!',
+            showConfirmButton: false,
+            timer: 2500
+        });
+    }
+</script>
+</body>
+</html>
