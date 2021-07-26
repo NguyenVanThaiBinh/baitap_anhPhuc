@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="demo_MVC_CRUD" />
+        <module name="baitap_anhPhuc" />
       </profile>
     </annotationProcessing>
   </component>
